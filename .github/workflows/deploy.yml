@@ -48,7 +48,5 @@ jobs:
         port: ${{ secrets.VPS_SSH_PORT }}
         script: |
           echo "✅ Conexión exitosa desde GitHub Actions"
-          hostname
-          whoami
-          uptime
+          touch ejemploc.txt
         
