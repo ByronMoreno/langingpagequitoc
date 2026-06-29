@@ -57,7 +57,7 @@ jobs:
         password: ${{ secrets.VPS_PASSWORD }}
         port: ${{ secrets.VPS_SSH_PORT }}
         source: "stack.yml,Makefile"
-        target: "/home/${{ secrets.VPS_USER }}/ladingc"
+        target: "/home/${{ secrets.VPS_USER }}/landingb"
     
     - name: 🧪 Desplegando servicios
       uses: appleboy/ssh-action@v1
@@ -68,6 +68,6 @@ jobs:
         port: ${{ secrets.VPS_SSH_PORT }}
         script: |
           echo "✅ Desplegando los servicios"
-          cd ~/ladingc
+          cd ~/landingb
           docker pull ghcr.io/byronmoreno/landing:1.0.0
-          docker stack deploy -c stack.yml borrar
+          docker stack deploy -c stack.yml quinto
