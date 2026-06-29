@@ -8,8 +8,7 @@ HTML = """
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Cuenta Regresiva</title>
+<title>Cuenta Regresiva 16:00 + 9 minutos</title>
 
 <style>
 *{
@@ -38,7 +37,7 @@ body{
 
 .card{
     width:90%;
-    max-width:700px;
+    max-width:750px;
     padding:50px;
     border-radius:25px;
     text-align:center;
@@ -50,27 +49,27 @@ body{
 
 h1{
     color:white;
-    font-size:2.5rem;
+    font-size:2.7rem;
     margin-bottom:25px;
-    letter-spacing:2px;
 }
 
 #timer{
-    font-size:5rem;
-    color:#00e5ff;
+    font-size:6rem;
     font-weight:bold;
+    color:#00E5FF;
     text-shadow:0 0 20px rgba(0,229,255,.8);
     margin:25px 0;
 }
 
 #message{
     color:white;
-    font-size:1.5rem;
+    font-size:1.6rem;
 }
 
 .subtitle{
     margin-top:25px;
-    color:#cbd5e1;
+    color:#CBD5E1;
+    font-size:1.1rem;
 }
 
 .circle{
@@ -104,12 +103,8 @@ h1{
 }
 
 @keyframes float{
-    0%,100%{
-        transform:translateY(0);
-    }
-    50%{
-        transform:translateY(-30px);
-    }
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-30px);}
 }
 
 @media(max-width:768px){
@@ -119,7 +114,7 @@ h1{
     }
 
     #timer{
-        font-size:3rem;
+        font-size:3.5rem;
     }
 
     #message{
@@ -128,8 +123,8 @@ h1{
 
 }
 </style>
-
 </head>
+
 <body>
 
 <div class="circle"></div>
@@ -142,10 +137,10 @@ h1{
 
     <div id="timer">00:00:00</div>
 
-    <div id="message">Tiempo restante hasta las 16:00</div>
+    <div id="message">Esperando...</div>
 
     <div class="subtitle">
-        La cuenta se actualiza automáticamente cada segundo.
+        Cuenta hasta las 16:00 + 9 minutos de tiempo adicional.
     </div>
 
 </div>
@@ -156,32 +151,61 @@ function actualizarCuenta(){
 
     const ahora = new Date();
 
+    // Objetivo principal (16:00)
     let objetivo = new Date();
-
     objetivo.setHours(16,0,0,0);
 
-    // Si ya pasó de las 16:00, cuenta para mañana
-    if(ahora > objetivo){
+    // Si ya pasó el tiempo extra, reiniciar para el día siguiente
+    if(ahora >= new Date(objetivo.getTime() + 9*60*1000)){
         objetivo.setDate(objetivo.getDate()+1);
     }
 
-    const diferencia = objetivo - ahora;
+    const inicioExtra = objetivo;
+    const finExtra = new Date(objetivo.getTime() + 9*60*1000);
+
+    let diferencia;
+
+    if(ahora < inicioExtra){
+
+        // Cuenta normal
+        diferencia = inicioExtra - ahora;
+
+        document.getElementById("message").innerHTML =
+            "⏳ Tiempo restante hasta las 16:00";
+
+        document.getElementById("timer").style.color="#00E5FF";
+
+    }
+    else if(ahora < finExtra){
+
+        // Tiempo adicional
+        diferencia = finExtra - ahora;
+
+        document.getElementById("message").innerHTML =
+            "🟡 TIEMPO ADICIONAL";
+
+        document.getElementById("timer").style.color="#FFD700";
+
+    }
+    else{
+
+        diferencia = 0;
+
+        document.getElementById("message").innerHTML =
+            "✅ TIEMPO FINALIZADO";
+
+        document.getElementById("timer").style.color="#00FF7F";
+
+    }
 
     const horas = Math.floor(diferencia/(1000*60*60));
-
     const minutos = Math.floor((diferencia%(1000*60*60))/(1000*60));
-
     const segundos = Math.floor((diferencia%(1000*60))/1000);
 
     document.getElementById("timer").innerHTML =
         String(horas).padStart(2,'0') + ":" +
         String(minutos).padStart(2,'0') + ":" +
         String(segundos).padStart(2,'0');
-
-    if(diferencia <= 0){
-        document.getElementById("timer").innerHTML="00:00:00";
-        document.getElementById("message").innerHTML="🎉 ¡Llegó la hora!";
-    }
 
 }
 
