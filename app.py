@@ -6,128 +6,129 @@ HTML = """
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reloj Digital</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+<title>Cuenta Regresiva</title>
 
-        body{
-            height:100vh;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            overflow:hidden;
-            background:linear-gradient(-45deg,#0f172a,#1e3a8a,#312e81,#0f172a);
-            background-size:400% 400%;
-            animation:gradient 15s ease infinite;
-        }
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
 
-        @keyframes gradient{
-            0%{background-position:0% 50%;}
-            50%{background-position:100% 50%;}
-            100%{background-position:0% 50%;}
-        }
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    background:linear-gradient(-45deg,#0f172a,#1e3a8a,#312e81,#0f172a);
+    background-size:400% 400%;
+    animation:gradient 15s ease infinite;
+}
 
-        .card{
-            background:rgba(255,255,255,0.08);
-            backdrop-filter:blur(15px);
-            -webkit-backdrop-filter:blur(15px);
-            border:1px solid rgba(255,255,255,0.2);
-            border-radius:25px;
-            padding:50px;
-            text-align:center;
-            box-shadow:0 8px 32px rgba(0,0,0,0.3);
-            width:90%;
-            max-width:700px;
-        }
+@keyframes gradient{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
 
-        h1{
-            color:white;
-            font-size:2.5rem;
-            margin-bottom:20px;
-            letter-spacing:2px;
-        }
+.card{
+    width:90%;
+    max-width:700px;
+    padding:50px;
+    border-radius:25px;
+    text-align:center;
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,.2);
+    box-shadow:0 10px 35px rgba(0,0,0,.35);
+}
 
-        .clock{
-            color:#00e5ff;
-            font-size:5rem;
-            font-weight:bold;
-            text-shadow:0 0 20px rgba(0,229,255,0.7);
-            margin:20px 0;
-        }
+h1{
+    color:white;
+    font-size:2.5rem;
+    margin-bottom:25px;
+    letter-spacing:2px;
+}
 
-        .date{
-            color:white;
-            font-size:1.6rem;
-            margin-top:10px;
-        }
+#timer{
+    font-size:5rem;
+    color:#00e5ff;
+    font-weight:bold;
+    text-shadow:0 0 20px rgba(0,229,255,.8);
+    margin:25px 0;
+}
 
-        .subtitle{
-            color:#cbd5e1;
-            margin-top:20px;
-            font-size:1.1rem;
-        }
+#message{
+    color:white;
+    font-size:1.5rem;
+}
 
-        .circle{
-            position:absolute;
-            border-radius:50%;
-            background:rgba(255,255,255,0.08);
-            animation:float 10s infinite ease-in-out;
-        }
+.subtitle{
+    margin-top:25px;
+    color:#cbd5e1;
+}
 
-        .circle:nth-child(1){
-            width:200px;
-            height:200px;
-            top:10%;
-            left:10%;
-        }
+.circle{
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255,255,255,.08);
+    animation:float 10s ease-in-out infinite;
+}
 
-        .circle:nth-child(2){
-            width:300px;
-            height:300px;
-            bottom:5%;
-            right:5%;
-            animation-duration:15s;
-        }
+.circle:nth-child(1){
+    width:220px;
+    height:220px;
+    top:10%;
+    left:10%;
+}
 
-        .circle:nth-child(3){
-            width:150px;
-            height:150px;
-            top:70%;
-            left:20%;
-            animation-duration:12s;
-        }
+.circle:nth-child(2){
+    width:300px;
+    height:300px;
+    bottom:5%;
+    right:5%;
+    animation-duration:15s;
+}
 
-        @keyframes float{
-            0%,100%{
-                transform:translateY(0px);
-            }
-            50%{
-                transform:translateY(-30px);
-            }
-        }
+.circle:nth-child(3){
+    width:150px;
+    height:150px;
+    bottom:15%;
+    left:20%;
+    animation-duration:12s;
+}
 
-        @media(max-width:768px){
-            .clock{
-                font-size:3rem;
-            }
+@keyframes float{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-30px);
+    }
+}
 
-            .date{
-                font-size:1.2rem;
-            }
+@media(max-width:768px){
 
-            h1{
-                font-size:2rem;
-            }
-        }
-    </style>
+    h1{
+        font-size:2rem;
+    }
+
+    #timer{
+        font-size:3rem;
+    }
+
+    #message{
+        font-size:1.2rem;
+    }
+
+}
+</style>
+
 </head>
 <body>
 
@@ -136,43 +137,57 @@ HTML = """
 <div class="circle"></div>
 
 <div class="card">
-    <h1>🕒 RELOJ DIGITAL</h1>
 
-    <div id="clock" class="clock">00:00:00</div>
+    <h1>⏳ CUENTA REGRESIVA</h1>
 
-    <div id="date" class="date"></div>
+    <div id="timer">00:00:00</div>
+
+    <div id="message">Tiempo restante hasta las 16:00</div>
 
     <div class="subtitle">
-        Landing Page desarrollada con Flask
+        La cuenta se actualiza automáticamente cada segundo.
     </div>
+
 </div>
 
 <script>
 
-function actualizarReloj(){
+function actualizarCuenta(){
 
     const ahora = new Date();
 
-    const hora = String(ahora.getHours()).padStart(2,'0');
-    const minuto = String(ahora.getMinutes()).padStart(2,'0');
-    const segundo = String(ahora.getSeconds()).padStart(2,'0');
+    let objetivo = new Date();
 
-    document.getElementById("clock").innerHTML =
-        `${hora}:${minuto}:${segundo}`;
+    objetivo.setHours(16,0,0,0);
 
-    const opciones = {
-        weekday:'long',
-        year:'numeric',
-        month:'long',
-        day:'numeric'
-    };
+    // Si ya pasó de las 16:00, cuenta para mañana
+    if(ahora > objetivo){
+        objetivo.setDate(objetivo.getDate()+1);
+    }
 
-    document.getElementById("date").innerHTML =
-        ahora.toLocaleDateString('es-ES', opciones);
+    const diferencia = objetivo - ahora;
+
+    const horas = Math.floor(diferencia/(1000*60*60));
+
+    const minutos = Math.floor((diferencia%(1000*60*60))/(1000*60));
+
+    const segundos = Math.floor((diferencia%(1000*60))/1000);
+
+    document.getElementById("timer").innerHTML =
+        String(horas).padStart(2,'0') + ":" +
+        String(minutos).padStart(2,'0') + ":" +
+        String(segundos).padStart(2,'0');
+
+    if(diferencia <= 0){
+        document.getElementById("timer").innerHTML="00:00:00";
+        document.getElementById("message").innerHTML="🎉 ¡Llegó la hora!";
+    }
+
 }
 
-actualizarReloj();
-setInterval(actualizarReloj,1000);
+actualizarCuenta();
+
+setInterval(actualizarCuenta,1000);
 
 </script>
 
